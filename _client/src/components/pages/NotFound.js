@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 const NotFound = ({ isAuthenticated }) => {
 	return (
-		<section className='about'>
-			<div className='container mt-resp-5'>
+		<section className='about pt-5'>
+			<div className='container pt-5 mt-resp-5'>
 				<h3 className='text-center mb-4'>
 					<strong>404</strong>: Page Not Found
 				</h3>

@@ -6,7 +6,7 @@ import ContactForm from '../contacts/ContactForm';
 import ContactFilter from '../contacts/ContactFilter';
 import Contacts from '../contacts/Contacts';
 
-const Dashboard = ({ user }) => {
+const Home = ({ user }) => {
 	return (
 		<section className='home pt-5'>
 			<div className='container pt-5'>
@@ -29,7 +29,7 @@ const Dashboard = ({ user }) => {
 	);
 };
 
-Dashboard.propTypes = {
+Home.propTypes = {
 	user: PropTypes.object
 };
 
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
 	user: state.auth.user
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps)(Home);

@@ -19,9 +19,8 @@ const About = () => {
 						</p>
 						<div className='w-50-text'>
 							<p>
-								MongoGin login system is powered by React JS, Redux,
-								Node, Express and MongoDB database. MongoGin is MongoDB
-								+ Login, it's not a drink combo like C2Gin.
+								MongoGin is a contact info manager app built with React,
+								Redux, Node, Express JS and MongoDB database.
 							</p>
 						</div>
 					</div>

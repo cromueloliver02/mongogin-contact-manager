@@ -3,13 +3,14 @@ import setAuthToken from '../utils/setAuthToken';
 import { clearContacts } from './contact';
 import { setAlert } from './alert';
 import {
-	// REGISTER_SUCCESS,
+	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
-	LOGOUT
+	LOGOUT,
+	SET_LOADING_AUTH
 } from './types';
 
 export const loadUser = () => async dispatch => {
@@ -32,6 +33,8 @@ export const loadUser = () => async dispatch => {
 };
 
 export const register = (name, email, password, history) => async dispatch => {
+	dispatch(setLoading());
+
 	const config = {
 		headers: {
 			'Content-Type': 'application/json'
@@ -46,10 +49,7 @@ export const register = (name, email, password, history) => async dispatch => {
 	try {
 		const res = await axios.post('/api/user', body, config);
 
-		// dispatch({
-		// 	type: REGISTER_SUCCESS,
-		// 	payload: res.data
-		// });
+		dispatch({ type: REGISTER_SUCCESS });
 
 		dispatch(setAlert('Registered successfully', 'success'));
 
@@ -70,6 +70,8 @@ export const register = (name, email, password, history) => async dispatch => {
 };
 
 export const login = (email, password) => async dispatch => {
+	dispatch(setLoading());
+
 	const config = {
 		headers: {
 			'Content-Type': 'application/json'
@@ -107,4 +109,8 @@ export const logout = () => dispatch => {
 	dispatch({ type: LOGOUT });
 
 	dispatch(clearContacts());
+};
+
+const setLoading = () => dispatch => {
+	dispatch({ type: SET_LOADING_AUTH });
 };

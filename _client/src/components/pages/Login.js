@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { login } from '../../_actions/auth';
 import PropTypes from 'prop-types';
 
-const Login = ({ isAuthenticated, login }) => {
+const Login = ({ auth: { isAuthenticated, loading }, login }) => {
 	const [formData, setFormData] = useState({
 		email: '',
 		password: ''
@@ -17,6 +17,11 @@ const Login = ({ isAuthenticated, login }) => {
 
 	const onLogin = e => {
 		login(email, password);
+
+		setFormData({
+			email: '',
+			password: ''
+		});
 
 		e.preventDefault();
 	};
@@ -52,6 +57,7 @@ const Login = ({ isAuthenticated, login }) => {
 										name='email'
 										value={email}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -69,6 +75,7 @@ const Login = ({ isAuthenticated, login }) => {
 										name='password'
 										value={password}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -76,8 +83,13 @@ const Login = ({ isAuthenticated, login }) => {
 								type='submit'
 								className='btn btn-dark btn-block btn-sm'
 								onClick={onLogin}
+								disabled={loading}
 							>
-								LOGIN
+								{loading ? (
+									<i className='fas fa-fan fa-spin'></i>
+								) : (
+									<span>LOGIN</span>
+								)}
 							</button>
 						</form>
 						<p className='mt-4'>
@@ -92,11 +104,11 @@ const Login = ({ isAuthenticated, login }) => {
 
 Login.propTypes = {
 	login: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool
+	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
+	auth: state.auth
 });
 
 export default connect(mapStateToProps, { login })(Login);

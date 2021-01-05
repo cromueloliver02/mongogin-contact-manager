@@ -5,7 +5,12 @@ import { setAlert } from '../../_actions/alert';
 import { register } from '../../_actions/auth';
 import PropTypes from 'prop-types';
 
-const Register = ({ isAuthenticated, setAlert, register, history }) => {
+const Register = ({
+	auth: { isAuthenticated, loading },
+	setAlert,
+	register,
+	history
+}) => {
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',
@@ -24,6 +29,13 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 			setFormData({ ...formData, password: '', password2: '' });
 		} else {
 			register(name, email, password, history);
+
+			setFormData({
+				name: '',
+				email: '',
+				password: '',
+				password2: ''
+			});
 		}
 
 		e.preventDefault();
@@ -60,6 +72,7 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 										name='name'
 										value={name}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -77,6 +90,7 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 										name='email'
 										value={email}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -94,6 +108,7 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 										name='password'
 										value={password}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -111,6 +126,7 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 										name='password2'
 										value={password2}
 										onChange={onChange}
+										disabled={loading}
 									/>
 								</div>
 							</div>
@@ -118,8 +134,13 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 								type='submit'
 								className='btn btn-dark btn-block btn-sm'
 								onClick={onSubmit}
+								disabled={loading}
 							>
-								REGISTER
+								{loading ? (
+									<i class='fas fa-fan fa-spin'></i>
+								) : (
+									<span>REGISTER</span>
+								)}
 							</button>
 						</form>
 						<p className='mt-4'>
@@ -135,11 +156,11 @@ const Register = ({ isAuthenticated, setAlert, register, history }) => {
 Register.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	register: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool
+	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.auth.isAuthenticated
+	auth: state.auth
 });
 
 export default connect(mapStateToProps, { setAlert, register })(

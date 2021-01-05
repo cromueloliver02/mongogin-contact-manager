@@ -9,7 +9,7 @@ import { setAlert } from '../../_actions/alert';
 import PropTypes from 'prop-types';
 
 const ContactForm = ({
-	current,
+	contact: { current, loading },
 	addContact,
 	updateContact,
 	clearCurrent,
@@ -204,14 +204,27 @@ const ContactForm = ({
 						!current ? 'btn-primary' : 'btn btn-info'
 					} btn-block btn-sm mb-1`}
 					onClick={onSubmit}
+					disabled={loading}
 				>
 					{!current ? (
 						<Fragment>
-							<i className='fas fa-plus'></i> ADD
+							{loading ? (
+								<i className='fas fa-fan fa-spin '></i>
+							) : (
+								<Fragment>
+									<i className='fas fa-plus'></i> ADD
+								</Fragment>
+							)}
 						</Fragment>
 					) : (
 						<Fragment>
-							<i className='fas fa-pencil-alt'></i> UPDATE
+							{loading ? (
+								<i className='fas fa-fan fa-spin '></i>
+							) : (
+								<Fragment>
+									<i className='fas fa-pencil-alt'></i> UPDATE
+								</Fragment>
+							)}
 						</Fragment>
 					)}
 				</button>
@@ -233,11 +246,11 @@ ContactForm.addContact = {
 	updateContact: PropTypes.func.isRequired,
 	clearCurrent: PropTypes.func.isRequired,
 	setAlert: PropTypes.func.isRequired,
-	current: PropTypes.object
+	contact: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	current: state.contact.current
+	contact: state.contact
 });
 
 export default connect(mapStateToProps, {

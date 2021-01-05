@@ -20,6 +20,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const USER_LOADED = 'USER_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGOUT = 'LOGOUT';
+export const SET_LOADING_AUTH = 'SET_LOADING_AUTH';
 
 // alert
 export const SET_ALERT = 'SET_ALERT';

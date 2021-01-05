@@ -1,11 +1,12 @@
 import {
-	// REGISTER_SUCCESS,
+	REGISTER_SUCCESS,
 	REGISTER_FAIL,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
-	LOGOUT
+	LOGOUT,
+	SET_LOADING_AUTH
 } from '../_actions/types';
 
 const initialState = {
@@ -33,11 +34,16 @@ export default (state = initialState, { type, payload }) => {
 				loading: false
 			};
 		// @todo		EDIT BACK TO ORIGINAL
+		case REGISTER_SUCCESS:
 		case REGISTER_FAIL:
 		case LOGIN_FAIL:
 		case AUTH_ERROR:
 			return {
-				...state
+				...state,
+				token: null,
+				isAuthenticated: false,
+				user: null,
+				loading: false
 			};
 		case LOGOUT:
 			localStorage.removeItem('token');
@@ -48,6 +54,11 @@ export default (state = initialState, { type, payload }) => {
 				loading: false,
 				// my custom code
 				user: null
+			};
+		case SET_LOADING_AUTH:
+			return {
+				...state,
+				loading: true
 			};
 		default:
 			return state;

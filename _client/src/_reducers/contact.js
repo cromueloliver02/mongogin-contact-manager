@@ -8,7 +8,8 @@ import {
 	CLEAR_FILTER,
 	SET_CURRENT,
 	CLEAR_CURRENT,
-	SET_LOADING
+	SET_LOADING,
+	CONTACT_ERROR
 } from '../_actions/types';
 
 const initialState = {
@@ -84,6 +85,12 @@ export default (state = initialState, { type, payload }) => {
 			return {
 				...state,
 				loading: true
+			};
+		case CONTACT_ERROR:
+			return {
+				...state,
+				error: payload,
+				loading: false
 			};
 		default:
 			return state;

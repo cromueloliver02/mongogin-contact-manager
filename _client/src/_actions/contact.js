@@ -9,7 +9,8 @@ import {
 	CLEAR_FILTER,
 	SET_CURRENT,
 	CLEAR_CURRENT,
-	SET_LOADING
+	SET_LOADING,
+	CONTACT_ERROR
 } from '../_actions/types';
 import { setAlert } from '../_actions/alert';
 
@@ -54,6 +55,11 @@ export const addContact = formData => async dispatch => {
 		console.error(err.message);
 
 		dispatch(setAlert(err.response.data.msg, 'danger'));
+
+		dispatch({
+			type: CONTACT_ERROR,
+			payload: err.response.data
+		});
 	}
 };
 
@@ -74,6 +80,11 @@ export const deleteContact = id => async dispatch => {
 	} catch (err) {
 		console.error(err.message);
 		dispatch(setAlert(err.response.data.msg, 'danger'));
+
+		dispatch({
+			type: CONTACT_ERROR,
+			payload: err.response.data
+		});
 	}
 };
 
@@ -105,6 +116,11 @@ export const updateContact = formData => async dispatch => {
 	} catch (err) {
 		console.error(err.message);
 		dispatch(setAlert(err.response.data.msg, 'danger'));
+
+		dispatch({
+			type: CONTACT_ERROR,
+			payload: err.response.data
+		});
 	}
 };
 
